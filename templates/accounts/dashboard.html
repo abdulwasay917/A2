@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4e73df, #1cc88a);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            max-width: 700px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #2a5298;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s ease;
+            color: white;
+            background-color: #4e73df;
+        }
+
+        .btn:hover {
+            background-color: #2e59d9;
+        }
+
+        .btn-logout {
+            background-color: #e74c3c;
+        }
+
+        .btn-logout:hover {
+            background-color: #c0392b;
+        }
+
+        .btn-bank {
+            background-color: #1cc88a;
+        }
+
+        .btn-bank:hover {
+            background-color: #17a673;
+        }
+
+        .btn-branch {
+            background-color: #f6c23e;
+            color: #333;
+        }
+
+        .btn-branch:hover {
+            background-color: #dda20a;
+            color: #fff;
+        }
+
+        @media (max-width: 600px) {
+            .btn-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Welcome, {{ request.user.username }}!</h2>
+        <p>You are logged in.</p>
+
+        <div class="btn-group">
+            <a href="{% url 'logout' %}" class="btn btn-logout">Logout</a>
+            <a href="{% url 'view' %}" class="btn">View Profile</a>
+            <a href="{% url 'all_banks' %}" class="btn btn-bank">All Banks</a>
+            <a href="{% url 'add_bank' %}" class="btn btn-bank">Add Bank</a>
+
+            {% if banks %}
+                {% for bank in banks %}
+                    <a href="{% url 'add_branch' bank.id %}" class="btn btn-branch">Add Branch ({{ bank.name }})</a>
+                    {% for branch in bank.branches.all %}
+                        <a href="{% url 'branch_details' branch.id %}" class="btn btn-branch">View Branch ({{ branch.name }})</a>
+                        <a href="{% url 'edit_branch' branch.id %}" class="btn btn-branch">Edit Branch ({{ branch.name }})</a>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

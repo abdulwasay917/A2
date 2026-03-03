@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Delete Bank</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6a6a, #ff3d3d);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .delete-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            text-align: center;
+            width: 420px;
+        }
+
+        .delete-card h2 {
+            margin-top: 0;
+            color: #dc3545;
+        }
+
+        .delete-card p {
+            font-size: 16px;
+            margin: 20px 0;
+            color: #444;
+        }
+
+        .actions {
+            margin-top: 25px;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 6px;
+            background: #dc3545;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background: #b02a37;
+        }
+
+        .cancel-btn {
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            background: #6c757d;
+            color: white;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        .cancel-btn:hover {
+            background: #5a6268;
+        }
+
+        strong {
+            color: #1e3c72;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="delete-card">
+        <h2>Delete Bank</h2>
+
+        <p>Are you sure you want to delete <strong>{{ object.name }}</strong>?</p>
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="actions">
+                <button type="submit">Yes, Delete</button>
+                <a href="{% url 'all_banks' %}" class="cancel-btn">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

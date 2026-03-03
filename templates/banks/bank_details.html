@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ bank.name }}</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f4f6f9;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .bank-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            margin-bottom: 30px;
+        }
+
+        .bank-card h1 {
+            margin-top: 0;
+            color: #1e3c72;
+        }
+
+        .bank-info {
+            margin: 10px 0;
+            font-size: 15px;
+            color: #444;
+        }
+
+        .bank-info strong {
+            color: #2a5298;
+        }
+
+        .description {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fc;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .actions {
+            margin-top: 20px;
+        }
+
+        .btn {
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-weight: 600;
+            margin-right: 10px;
+            transition: 0.3s;
+            font-size: 14px;
+        }
+
+        .btn-update {
+            background: #2a5298;
+            color: white;
+        }
+
+        .btn-update:hover {
+            background: #1e3c72;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #b02a37;
+        }
+
+        .branch-section h2 {
+            margin-bottom: 15px;
+            color: #1e3c72;
+        }
+
+        .branch-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .branch-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+        }
+
+        .branch-name {
+            font-weight: 600;
+            color: #2a5298;
+            margin-bottom: 5px;
+        }
+
+        .no-branches {
+            color: #777;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="bank-card">
+        <h1>{{ bank.name }}</h1>
+
+        <div class="bank-info">
+            <strong>SWIFT Code:</strong> {{ bank.swift_code }}
+        </div>
+
+        <div class="bank-info">
+            <strong>Institution Number:</strong> {{ bank.institution_number }}
+        </div>
+
+        <div class="description">
+            {{ bank.description }}
+        </div>
+
+        {% if bank.owner == request.user %}
+        <div class="actions">
+            <a href="/banks/update/{{ bank.id }}/" class="btn btn-update">Update</a>
+            <a href="/banks/delete/{{ bank.id }}/" class="btn btn-delete">Delete</a>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="branch-section">
+        <h2>Branches</h2>
+
+        {% if branches %}
+            <div class="branch-list">
+                {% for branch in branches %}
+                    <div class="branch-card">
+                        <div class="branch-name">{{ branch.name }}</div>
+                        <div>{{ branch.address }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="no-branches">No branches available for this bank.</div>
+        {% endif %}
+    </div>
+
+</div>
+
+</body>
+</html>

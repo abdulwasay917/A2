@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Branch</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-card {
+            background: #ffffff;
+            padding: 40px;
+            width: 420px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .form-card h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .bank-name {
+            text-align: center;
+            font-size: 14px;
+            color: #2a5298;
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+
+        form p {
+            margin-bottom: 15px;
+        }
+
+        form input, form select, form textarea {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 5px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        form input:focus, form select:focus, form textarea:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 6px rgba(42, 82, 152, 0.3);
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 6px;
+            background: #2a5298;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background: #1e3c72;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-card">
+    <h1>Add Branch</h1>
+    <div class="bank-name">For {{ bank.name }}</div>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Branch</button>
+    </form>
+</div>
+
+</body>
+</html>
